@@ -9,7 +9,7 @@ public class Seed {
 		app = a;
 		this.x = x;
 		this.y = y;
-		speed = .05f;
+		speed = .005f;
 	}
 	
 	public void update() {
@@ -17,7 +17,9 @@ public class Seed {
 	}
 	
 	public void draw() {
-		app.ellipse(x, x, .1f, .1f);
+		app.stroke(100);
+		app.fill(100);
+		app.ellipse(x, y, .1f, .1f);
 	}
 	
 	public float getX() {

@@ -39,7 +39,6 @@ public class Branch {
 		
 		applet.noFill();
 		applet.stroke(255, 255, 0);
-		//applet.line(xPos, yPos, xEnd, yEnd);
 		float midX = (xPos + xEnd) /2;
 		float midY = (yPos + yEnd) /2;
 		

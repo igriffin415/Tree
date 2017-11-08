@@ -9,7 +9,7 @@ public class TreeApp extends PApplet {
 	public static enum COLOR_STATE { RED, GREEN, BLUE };
 	public COLOR_STATE colorState = COLOR_STATE.RED;
 
-	String recordingFile = "test.kinect";
+	String recordingFile;// = "test.kinect";
 	HashMap<Long, Person> tracks = new HashMap<Long, Person>();
 	HashMap<Long, Person> twoPeople = new HashMap<Long, Person>();
 	Person pers1, pers2;
@@ -51,9 +51,6 @@ public class TreeApp extends PApplet {
 	public void draw(){
 		setScale(.5f);
 
-		if(tree == null)
-			tree = new Tree(this, 0, bottom);
-
 		KinectBodyData bodyData = kinectReader.getMostRecentData();
 
 		tracker.update(bodyData);
@@ -79,6 +76,8 @@ public class TreeApp extends PApplet {
 			{
 				Person p = twoPeople.get(b.getId());
 				p.update(b);
+				drawIfValid(p.getLeftHand());
+				drawIfValid(p.getRightHand());
 			}
 		}
 		
@@ -111,15 +110,15 @@ public class TreeApp extends PApplet {
 			//if the hands intersect and a seed is not falling
 			//need two seperate in order to get correct position for falling
 			if(checkIntersect(pers1.getLeftHand(), pers2.getRightHand()) && 
-			   seed != null) {
+			   seed == null) {
 				seed = new Seed(this, pers1.getLeftHand().x, pers1.getLeftHand().y);
 			}
 			else if(checkIntersect(pers1.getRightHand(), pers2.getLeftHand()) &&
-					   seed != null) {
+					   seed == null) {
 				seed = new Seed(this, pers2.getLeftHand().x, pers2.getLeftHand().y);
 			}
 			
-			if(seed != null && seed.getY() <= bottom) {
+			if(seed != null && seed.getY() <= bottom && tree == null) {
 				tree = new Tree(this, seed.getX(), bottom);
 			}
 		}
@@ -136,16 +135,28 @@ public class TreeApp extends PApplet {
 	 * @return true if the hands are together
 	 */
 	public boolean checkIntersect(PVector hand1, PVector hand2) {	
-		float diam = .1f;
+		float diam = .65f;
 		if (hand1!=null && hand2!=null)	{
 			//calculate the distance between the hands
-			double distance = dist(hand1.x, hand1.y, hand2.x, hand2.y);
-			if(distance <= diam)
+			float distance = dist(hand1.x, hand1.y, hand2.x, hand2.y);
+			if(distance <= diam) {
 				return true;
 			}
+		}
 		return false;
 	}
 	
+	public void drawIfValid(PVector vec) {
+		if(vec!= null)
+		{
+			fill(255);
+			stroke(255);
+			strokeWeight(.1f);
+			ellipse(vec.x, vec.y, .1f, .1f);
+		}
+		
+		
+	}
 	
 	
 	public void createWindow(boolean useP2D, boolean isFullscreen, float windowsScale) {
