@@ -3,21 +3,23 @@ import processing.core.PApplet;
 //ten branches, call draw for each branch
 public class Tree {
 	PApplet app;
-	float start;
+	float start, bottom;
 	Branch[] branches;
 
-	public Tree(PApplet a, float s) {
+	public Tree(PApplet a, float s, float b) {
 		app = a;
 		start = s;
+		bottom = b;
 		branches = new Branch[10];
 		fillBranches();
 	}
 	
 	
 	/* adds branch to branch array */
-	public void addBranch() {
-		//Branch b = new Branch(); //either i send in a random number or empty constructor
-	}
+//	private void addBranch() {
+//		float angle = (float)(Math.random() * 120) + 30;
+//		Branch b = new Branch(start, bottom, angle, app);
+//	}
 	
 	/* update branches in branch array */
 	public void update() {
@@ -29,14 +31,16 @@ public class Tree {
 	/* draw branches in branch array */
 	public void draw() {
 		for(Branch b : branches) {
-			//b.draw();
+			b.draw();
 		}
 	}
 	
 	/* fill branch array */
 	private void fillBranches() {
-		for(Branch b : branches) {
-			//b = new Branch();
+		for(int i=0; i < branches.length; i++) {
+			float angle = (float)(Math.random() * 120) + 30;
+			branches[i] = new Branch(start, bottom, angle, app);
+			System.out.println(angle);
 		}
 	}
 }

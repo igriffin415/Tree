@@ -16,6 +16,7 @@ public class TreeApp extends PApplet {
 	Seed seed;
 	Tree tree;
 	
+	float bottom;
 	
 	KinectBodyDataProvider kinectReader;
 	PersonTracker tracker = new PersonTracker();
@@ -32,16 +33,15 @@ public class TreeApp extends PApplet {
 		 * use this code to run your PApplet from data recorded by UPDRecorder 
 		 */
 
-		//if(recordingFile != null)
-		try {
-			kinectReader = new KinectBodyDataProvider("test.kinect", 10);
-		} catch (IOException e) {
-			System.out.println("Unable to create kinect producer");
+		if(recordingFile != null)
+			try {
+				kinectReader = new KinectBodyDataProvider("test.kinect", 10);
+			} catch (IOException e) {
+				System.out.println("Unable to create kinect producer");
+			}
+		else {
+			kinectReader = new KinectBodyDataProvider(8008);
 		}
-
-//		else {
-//			kinectReader = new KinectBodyDataProvider(8008);
-//		}
 		
 		seed = null;
 		tree = null;
@@ -51,11 +51,13 @@ public class TreeApp extends PApplet {
 	public void draw(){
 		setScale(.5f);
 
+		if(tree == null)
+			tree = new Tree(this, 0, bottom);
 
 		KinectBodyData bodyData = kinectReader.getMostRecentData();
 
 		tracker.update(bodyData);
-		background(255);
+		background(0);
 
 		for(Long id : tracker.getEnters()) {
 			tracks.put(id,  new Person(this, .1f));
@@ -83,6 +85,7 @@ public class TreeApp extends PApplet {
 		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
 		//don't want a tree and seed 
 		if(tree != null) {
+			this.strokeWeight(.01f);
 			tree.update();
 			tree.draw();
 		}
@@ -116,8 +119,8 @@ public class TreeApp extends PApplet {
 				seed = new Seed(this, pers2.getLeftHand().x, pers2.getLeftHand().y);
 			}
 			
-			if(seed != null && seed.getY() > this.height) {
-				tree = new Tree(this, seed.getX());
+			if(seed != null && seed.getY() <= bottom) {
+				tree = new Tree(this, seed.getX(), bottom);
 			}
 		}
 	}
@@ -166,6 +169,7 @@ public class TreeApp extends PApplet {
 	public void setScale(float zoom) {
 		scale(zoom* width/2.0f, zoom * -width/2.0f);
 		translate(1f/zoom , -PROJECTOR_RATIO/zoom );		
+		bottom = -PROJECTOR_RATIO/zoom;
 	}
 
 
