@@ -48,7 +48,10 @@ public class Branch {
 
 		//curve 
 		applet.curveVertex(xPos, yPos);
-		//applet.curveVertex(midX , midY);
+		applet.curveVertex(xPos, yPos);
+		applet.curveVertex(midX , midY);
+		applet.curveVertex(midX - .05f , midY+.02f);
+		applet.curveVertex(xEnd, yEnd);
 		applet.curveVertex(xEnd, yEnd);
 		applet.endShape(); 
 		

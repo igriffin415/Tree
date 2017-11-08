@@ -24,7 +24,7 @@ public class TreeApp extends PApplet {
 	public static float PROJECTOR_RATIO = 1080f/1920.0f;
 
 	public void settings() {
-		createWindow(true, true, .5f);
+		createWindow(true, false, .5f);
 	}
 
 	public void setup(){
