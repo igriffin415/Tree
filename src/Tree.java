@@ -10,6 +10,7 @@ public class Tree {
 		app = a;
 		start = s;
 		branches = new Branch[10];
+		fillBranches();
 	}
 	
 	
@@ -20,16 +21,22 @@ public class Tree {
 	
 	/* update branches in branch array */
 	public void update() {
-		for(Branch branch : branches) {
-			//update each branch
+		for(Branch b : branches) {
+			//b.update();
 		}
 	}
 	
 	/* draw branches in branch array */
 	public void draw() {
-		for(Branch branch : branches) {
-			//branch.draw();
-			//draw each branch
+		for(Branch b : branches) {
+			//b.draw();
+		}
+	}
+	
+	/* fill branch array */
+	private void fillBranches() {
+		for(Branch b : branches) {
+			//b = new Branch();
 		}
 	}
 }
