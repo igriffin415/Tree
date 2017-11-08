@@ -12,8 +12,7 @@ public class Seed {
 		speed = .05f;
 	}
 	
-	//equivalent to update method
-	public void fall() {
+	public void update() {
 		this.y = this.y - speed;
 	}
 	
@@ -23,5 +22,9 @@ public class Seed {
 	
 	public float getX() {
 		return this.x;
+	}
+	
+	public float getY() {
+		return this.y;
 	}
 }
