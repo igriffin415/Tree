@@ -54,7 +54,7 @@ public class TreeApp extends PApplet {
 		KinectBodyData bodyData = kinectReader.getMostRecentData();
 
 		tracker.update(bodyData);
-		background(0);
+		background(229, 255, 204);
 
 		for(Long id : tracker.getEnters()) {
 			tracks.put(id,  new Person(this, .1f));
