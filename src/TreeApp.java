@@ -13,7 +13,8 @@ public class TreeApp extends PApplet {
 	HashMap<Long, Person> tracks = new HashMap<Long, Person>();
 	HashMap<Long, Person> twoPeople = new HashMap<Long, Person>();
 	Person pers1, pers2;
-	
+	Seed seed;
+	Tree tree;
 	
 	
 	KinectBodyDataProvider kinectReader;
@@ -41,9 +42,9 @@ public class TreeApp extends PApplet {
 //		else {
 //			kinectReader = new KinectBodyDataProvider(8008);
 //		}
-
-
-
+		
+		seed = null;
+		tree = null;
 		kinectReader.start();
 
 	}
@@ -79,10 +80,23 @@ public class TreeApp extends PApplet {
 			}
 		}
 		
-		int count = 1;
+		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
+		//don't want a tree and seed 
+		if(tree != null) {
+			tree.update();
+			tree.draw();
+		}
+		else if(seed != null) {
+			seed.update();
+			seed.draw();
+		}
 
+		//if there are two people set each person to
+		//pers1 and pers2 for use
 		if(twoPeople.size() >= 2)
 		{
+			int count = 1;
+			//set people
 			for(Long id : twoPeople.keySet()) {
 				if(count == 1)
 					pers1 = twoPeople.get(id);
@@ -91,8 +105,20 @@ public class TreeApp extends PApplet {
 				count++;
 			}
 			
+			//if the hands intersect and a seed is not falling
+			//need two seperate in order to get correct position for falling
+			if(checkIntersect(pers1.getLeftHand(), pers2.getRightHand()) && 
+			   seed != null) {
+				seed = new Seed(this, pers1.getLeftHand().x, pers1.getLeftHand().y);
+			}
+			else if(checkIntersect(pers1.getRightHand(), pers2.getLeftHand()) &&
+					   seed != null) {
+				seed = new Seed(this, pers2.getLeftHand().x, pers2.getLeftHand().y);
+			}
 			
-			
+			if(seed != null && seed.getY() > this.height) {
+				tree = new Tree(this, seed.getX());
+			}
 		}
 	}
 

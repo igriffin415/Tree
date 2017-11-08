@@ -12,12 +12,19 @@ public class Seed {
 		speed = .05f;
 	}
 	
-	//equivalent to update method
-	public void fall() {
+	public void update() {
 		this.y = this.y - speed;
 	}
 	
 	public void draw() {
 		app.ellipse(x, x, .1f, .1f);
+	}
+	
+	public float getX() {
+		return this.x;
+	}
+	
+	public float getY() {
+		return this.y;
 	}
 }
