@@ -8,7 +8,7 @@ public class Branch {
 
 	private static final float WIDTH = .2f;
 	private static final float DECREASE = .005f;
-	private static int LENGTH = 10;
+	private static final int LENGTH = 1;
 
 	float xPos;
 	float yPos;
@@ -37,18 +37,18 @@ public class Branch {
 		
 		applet.noFill();
 		applet.stroke(255, 255, 0);
-		applet.line(xPos, yPos, xEnd, yEnd);
-		
-		
-		/*applet.beginShape();
-		// midpoint
+		//applet.line(xPos, yPos, xEnd, yEnd);
 		float midX = (xPos + xEnd) /2;
 		float midY = (yPos + yEnd) /2;
-		//curve 1
-		applet.curve(xPos, yPos, 3.5f*(xPos + midX), .5f*(xPos + midX), 5.5f*(xPos + midX), 10.5f*(xPos + midX), midX, midY);
-		//curve 2
-		applet.curve(midX, midY, 3.5f*(xPos + midX), 3.5f*(xPos + midX), 50.0f, 20.0f, xEnd, yEnd);
-		applet.endShape(); */
+		
+		applet.beginShape();
+		// midpoint
+
+		//curve 
+		applet.curveVertex(xPos, yPos);
+		//applet.curveVertex(midX , midY);
+		applet.curveVertex(xEnd, yEnd);
+		applet.endShape(); 
 		
 	}	
 }
