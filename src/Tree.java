@@ -40,7 +40,6 @@ public class Tree {
 		for(int i=0; i < branches.length; i++) {
 			float angle = (float)(Math.random() * 120) + 30;
 			branches[i] = new Branch(start, bottom, angle, app);
-			System.out.println(angle);
 		}
 	}
 }
