@@ -8,7 +8,7 @@ public class Branch {
 
 	private static final float WIDTH = .2f;
 	private static final float DECREASE = .005f;
-	private static int LENGTH = 10;
+	private static int LENGTH = 1;
 
 	float xPos;
 	float yPos;
