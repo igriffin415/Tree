@@ -47,7 +47,8 @@ public class Branch {
 		
 		applet.noFill();
 		applet.stroke(204, 102, 0);
-		//applet.line(xPos, yPos, xEnd, yEnd);
+		applet.strokeWeight(.05f);
+		
 		float midX = (xPos + xEnd) /2;
 		float midY = (yPos + yEnd) /2;
 		
@@ -57,8 +58,8 @@ public class Branch {
 		//curve 
 		applet.curveVertex(xPos, yPos);
 		applet.curveVertex(xPos, yPos);
-		applet.curveVertex(midX , midY);
-		applet.curveVertex(midX - random , midY + random*1.02f);
+		//applet.curveVertex(.5f*midX + .5f*random , 1.5f*midY - random*.6f);
+		applet.curveVertex(midX - 2.5f*random , midY + random*2.6f);
 		applet.curveVertex(xEnd, yEnd);
 		applet.curveVertex(xEnd, yEnd);
 		applet.endShape(); 
