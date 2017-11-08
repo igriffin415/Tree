@@ -80,6 +80,8 @@ public class TreeApp extends PApplet {
 			}
 		}
 		
+		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
+		//don't want a tree and seed 
 		if(tree != null) {
 			tree.update();
 			tree.draw();
@@ -88,11 +90,13 @@ public class TreeApp extends PApplet {
 			seed.update();
 			seed.draw();
 		}
-		
-		int count = 1;
 
+		//if there are two people set each person to
+		//pers1 and pers2 for use
 		if(twoPeople.size() >= 2)
 		{
+			int count = 1;
+			//set people
 			for(Long id : twoPeople.keySet()) {
 				if(count == 1)
 					pers1 = twoPeople.get(id);
