@@ -6,29 +6,29 @@ public class Tree {
 	float start;
 	Branch[] branches;
 
-	public Tree(PApplet a) {
+	public Tree(PApplet a, float s) {
 		app = a;
+		start = s;
 		branches = new Branch[10];
-		fillBranches();
 	}
 	
 	
-	/* fills the branch array */
-	private void fillBranches() {
-		for(Branch branch : branches) {
-			//create a branch 
-			//put branch in array
-		}
+	/* adds branch to branch array */
+	public void addBranch() {
+		//Branch b = new Branch(); //either i send in a random number or empty constructor
 	}
 	
+	/* update branches in branch array */
 	public void update() {
 		for(Branch branch : branches) {
 			//update each branch
 		}
 	}
 	
+	/* draw branches in branch array */
 	public void draw() {
 		for(Branch branch : branches) {
+			//branch.draw();
 			//draw each branch
 		}
 	}
