@@ -30,7 +30,7 @@ public class Branch {
 		xEnd = (float) (LENGTH*(Math.sin(angle)));
 		yEnd = (float) (LENGTH*(Math.cos(angle)));
 				
-		draw();
+		//draw();
 	}
 
 	public void draw(){
