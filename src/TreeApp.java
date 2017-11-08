@@ -122,6 +122,9 @@ public class TreeApp extends PApplet {
 				tree = new Tree(this, seed.getX(), bottom);
 			}
 		}
+		else if(twoPeople.size() == 0) {
+			tree = null;
+		}
 	}
 
 
@@ -149,8 +152,8 @@ public class TreeApp extends PApplet {
 	public void drawIfValid(PVector vec) {
 		if(vec!= null)
 		{
-			fill(255);
-			stroke(255);
+			fill(0);
+			stroke(0);
 			strokeWeight(.1f);
 			ellipse(vec.x, vec.y, .1f, .1f);
 		}

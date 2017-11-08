@@ -17,8 +17,8 @@ public class Seed {
 	}
 	
 	public void draw() {
-		app.stroke(100);
-		app.fill(100);
+		app.stroke(50);
+		app.fill(50);
 		app.ellipse(x, y, .1f, .1f);
 	}
 	
