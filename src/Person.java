@@ -20,7 +20,7 @@ public class Person {
 		return null;
 	}
 	
-	public PVector geteftHand() {
+	public PVector getLeftHand() {
 		PVector handLeft = body.getJoint(Body.HAND_LEFT);
 		if(handLeft != null)
 			return handLeft;

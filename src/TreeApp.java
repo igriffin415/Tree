@@ -13,6 +13,7 @@ public class TreeApp extends PApplet {
 	HashMap<Long, Person> tracks = new HashMap<Long, Person>();
 	HashMap<Long, Person> twoPeople = new HashMap<Long, Person>();
 	Person pers1, pers2;
+	Seed seed;
 	
 	
 	
@@ -41,9 +42,8 @@ public class TreeApp extends PApplet {
 //		else {
 //			kinectReader = new KinectBodyDataProvider(8008);
 //		}
-
-
-
+		
+		seed = null;
 		kinectReader.start();
 
 	}
@@ -91,7 +91,15 @@ public class TreeApp extends PApplet {
 				count++;
 			}
 			
-			
+			//if the hands intersect and a seed is not falling
+			if(checkIntersect(pers1.getLeftHand(), pers2.getRightHand()) && 
+			   seed != null) {
+				seed = new Seed(this, pers1.getLeftHand().x, pers1.getLeftHand().y);
+			}
+			else if(checkIntersect(pers1.getRightHand(), pers2.getLeftHand()) &&
+					   seed != null) {
+				seed = new Seed(this, pers2.getLeftHand().x, pers2.getLeftHand().y);
+			}
 			
 		}
 	}

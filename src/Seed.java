@@ -20,4 +20,8 @@ public class Seed {
 	public void draw() {
 		app.ellipse(x, x, .1f, .1f);
 	}
+	
+	public float getX() {
+		return this.x;
+	}
 }
