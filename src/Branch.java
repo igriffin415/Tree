@@ -8,9 +8,12 @@ public class Branch {
 
 	private static final float WIDTH = .2f;
 	private static final float DECREASE = .005f;
+	private static int LENGTH = 10;
 
 	float xPos;
 	float yPos;
+	float xEnd;
+	float yEnd;
 	float angle;
 	
 	private PApplet applet;
@@ -22,22 +25,19 @@ public class Branch {
 		this.yPos = y;
 		this.angle = angle;
 		this.applet = a;
+		
+		// Calculate endpoint 
+		xEnd = (float) (LENGTH*(Math.sin(angle)));
+		yEnd = (float) (LENGTH*(Math.cos(angle)));
 				
 		draw();
 	}
 
 	public void draw(){
+		
 		applet.noFill();
 		applet.stroke(255, 255, 0);
-		
-		applet.beginShape();
-
-		applet.line(85, 20, 10, 10);
-		applet.line(90, 90, 15, 80);
-		applet.stroke(0, 0, 0);
-		applet.bezier(85, 20, 10, 10, 90, 90, 15, 80);
-		
-		applet.endShape();
+		applet.line(xPos, yPos, xEnd, yEnd);	
 		
 	}	
 }
