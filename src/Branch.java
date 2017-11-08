@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.Random;
+
 import processing.core.PApplet;
 
 public class Branch {
@@ -17,6 +19,7 @@ public class Branch {
 	float xEnd;
 	float yEnd;
 	float angle;
+	float random;
 	
 	private PApplet applet;
 	boolean popped;
@@ -31,14 +34,19 @@ public class Branch {
 		// Calculate endpoint 
 		xEnd = (float) (LENGTH*(Math.sin(angle)));
 		yEnd = (float) (LENGTH*(Math.cos(angle)));
-				
+			
+		//get random for curves
+		Random rand = new Random();
+
+	    random = rand.nextFloat() * (.05f - 0.03f) + 0.03f;
+		
 		//draw();
 	}
 
 	public void draw(){
 		
 		applet.noFill();
-		applet.stroke(255, 255, 0);
+		applet.stroke(204, 102, 0);
 		//applet.line(xPos, yPos, xEnd, yEnd);
 		float midX = (xPos + xEnd) /2;
 		float midY = (yPos + yEnd) /2;
@@ -50,7 +58,7 @@ public class Branch {
 		applet.curveVertex(xPos, yPos);
 		applet.curveVertex(xPos, yPos);
 		applet.curveVertex(midX , midY);
-		applet.curveVertex(midX - .05f , midY+.02f);
+		applet.curveVertex(midX - random , midY + random*1.02f);
 		applet.curveVertex(xEnd, yEnd);
 		applet.curveVertex(xEnd, yEnd);
 		applet.endShape(); 
