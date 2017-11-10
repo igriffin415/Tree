@@ -12,56 +12,76 @@ public class Branch {
 	private static final float DECREASE = .005f;
 
 	private static final int LENGTH = 1;
-
-
-	float xPos;
-	float yPos;
+	private static final float FINAL_SIZE = 1.0f;
+	private static final float SPEED = 0.001f;
+	
+	float xStart;
+	float yStart;
 	float xEnd;
 	float yEnd;
+	float xMid;
+	float yMid;
+	float curEndX;
+	float curEndY;
 	float angle;
 	float random;
+	long startTime;
+	int growTime = 5000;
+	float interpolate = 0;
+	
+	float size;
 	
 	private PApplet applet;
 	boolean popped;
 
 
 	public Branch(float x, float y, float angle, PApplet a){
-		this.xPos = x;
-		this.yPos = y;
+		//get random for curves
+		Random rand = new Random();
+		startTime = System.currentTimeMillis();
+		
+		size = y;
+
+	    random = rand.nextFloat() * (.05f - 0.03f) + 0.03f;
+				
+		this.xStart = x;
+		this.yStart = y;
+		
 		this.angle = angle;
 		this.applet = a;
 		
 		// Calculate endpoint 
-		xEnd = (float) (LENGTH*(Math.sin(angle)));
-		yEnd = (float) (LENGTH*(Math.cos(angle)));
-			
-		//get random for curves
-		Random rand = new Random();
-
-	    random = rand.nextFloat() * (.05f - 0.03f) + 0.03f;
+		this.xEnd = (float) (LENGTH*(Math.sin(angle)));
+		this.yEnd = (float) (LENGTH*(Math.cos(angle)));
 		
-		//draw();
+		this.curEndX = xStart;
+		this.curEndY = yStart;
 	}
+	
 
 	public void draw(){
+		interpolate = (float)(System.currentTimeMillis()-startTime)/growTime;
 		
+		curEndX = (curEndX >= xEnd) ? xEnd : ((1-interpolate)*xStart + interpolate*xEnd);
+		curEndY = (curEndY >= yEnd) ? yEnd : ((1-interpolate)*yStart + interpolate*yEnd);
+		
+		//calculate midpoint
+		this.xMid = ((xStart + curEndX) /2.0f) - 2.5f * random;
+		this.yMid = ((yStart + curEndY) /2.0f) + random * 2.6f;
+
 		applet.noFill();
 		applet.stroke(204, 102, 0);
 		applet.strokeWeight(.05f);
 		
-		float midX = (xPos + xEnd) /2;
-		float midY = (yPos + yEnd) /2;
-		
 		applet.beginShape();
-		// midpoint
 
 		//curve 
-		applet.curveVertex(xPos, yPos);
-		applet.curveVertex(xPos, yPos);
+		applet.curveVertex(xStart, yStart);
+		applet.curveVertex(xStart, yStart);
 		//applet.curveVertex(.5f*midX + .5f*random , 1.5f*midY - random*.6f);
-		applet.curveVertex(midX - 2.5f*random , midY + random*2.6f);
-		applet.curveVertex(xEnd, yEnd);
-		applet.curveVertex(xEnd, yEnd);
+		applet.curveVertex(xMid, yMid);
+		applet.curveVertex(curEndX, curEndY);
+		applet.curveVertex(curEndX, curEndY);
 		applet.endShape(); 
 		
 	}	

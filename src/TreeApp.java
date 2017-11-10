@@ -9,7 +9,7 @@ public class TreeApp extends PApplet {
 	public static enum COLOR_STATE { RED, GREEN, BLUE };
 	public COLOR_STATE colorState = COLOR_STATE.RED;
 
-	String recordingFile;// = "test.kinect";
+	String recordingFile = "test.kinect";
 	HashMap<Long, Person> tracks = new HashMap<Long, Person>();
 	HashMap<Long, Person> twoPeople = new HashMap<Long, Person>();
 	Person pers1, pers2;
