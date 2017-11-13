@@ -15,6 +15,7 @@ public class TreeApp extends PApplet {
 	Person pers1, pers2;
 	Seed seed;
 	Tree tree;
+	RecursiveTree tree2;
 	
 	float bottom;
 	
@@ -44,7 +45,7 @@ public class TreeApp extends PApplet {
 		}
 		
 		seed = null;
-		tree = null;
+		tree2 = null;
 		kinectReader.start();
 
 	}
@@ -82,11 +83,11 @@ public class TreeApp extends PApplet {
 		}
 		
 		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
-		//don't want a tree and seed 
-		if(tree != null) {
+		//don't want a tree2 and seed 
+		if(tree2 != null) {
 			this.strokeWeight(.01f);
-			tree.update();
-			tree.draw();
+			//tree2.update();
+			tree2.draw();
 		}
 		else if(seed != null) {
 			seed.update();
@@ -118,12 +119,12 @@ public class TreeApp extends PApplet {
 				seed = new Seed(this, pers2.getLeftHand().x, pers2.getLeftHand().y);
 			}
 			
-			if(seed != null && seed.getY() <= bottom && tree == null) {
-				tree = new Tree(this, seed.getX(), bottom);
+			if(seed != null && seed.getY() <= bottom && tree2 == null) {
+				tree2 = new RecursiveTree(this, seed.getX(), bottom);
 			}
 		}
 		else if(twoPeople.size() == 0) {
-			tree = null;
+			tree2 = null;
 		}
 	}
 
