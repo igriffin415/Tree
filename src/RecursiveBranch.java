@@ -60,67 +60,67 @@ public class RecursiveBranch {
 //		branchLength = app.dist(xStart, yStart, xEnd, yEnd);
 	}
 	
-//	public void draw(){
-//		applet.strokeWeight(weight);
-//		if(currentLength < 1f){
-//			currentLength = currentLength + 0.5f;
-//		}
-//		else
-//			done = true;
-//
-//		float x = applet.lerp(xStart, xEnd, currentLength);
-//		float y = applet.lerp(yStart, yEnd, currentLength);
-//		applet.line(xStart, yStart, x, y);
-//	}
+	public void draw(){
+		applet.strokeWeight(weight);
+		if(currentLength < 1f){
+			currentLength = currentLength + 0.5f;
+		}
+		else
+			done = true;
+
+		float x = applet.lerp(xStart, xEnd, currentLength);
+		float y = applet.lerp(yStart, yEnd, currentLength);
+		applet.line(xStart, yStart, x, y);
+	}
 
 	public boolean isDone(){
 		return (doneX && doneY);
 	}
 	
 	
-	public void draw(){
-		interpolate = (float)(System.currentTimeMillis()-startTime)/growTime;
-		
-		if(curEndX <= xEnd){
-			curEndX = xEnd;;
-		}
-		else {
-			curEndX = (1-interpolate)*xStart + interpolate*xEnd;
-			doneX = true;
-		}
-		
-		if(curEndY >= yEnd){
-			curEndY = yEnd;
-		}
-		else {
-			curEndY = (1-interpolate)*yStart + interpolate*yEnd;
-			doneY=true;
-		}
-		
-//		curEndX = (curEndX >= xEnd) ? xEnd : ((1-interpolate)*xStart + interpolate*xEnd);
-//		curEndY = (curEndY >= yEnd) ? yEnd : ((1-interpolate)*yStart + interpolate*yEnd);
-		
-		
-		
-		//calculate midpoint
-		this.xMid = ((xStart + curEndX) /2.0f) - 2.5f * random;
-		this.yMid = ((yStart + curEndY) /2.0f) + random * 2.6f;
-
-		applet.noFill();
-		applet.stroke(204, 102, 0);
-		applet.strokeWeight(weight);
-		
-		applet.beginShape();
-
-		//curve 
-		applet.curveVertex(xStart, yStart);
-		applet.curveVertex(xStart, yStart);
-		//applet.curveVertex(.5f*midX + .5f*random , 1.5f*midY - random*.6f);
-		applet.curveVertex(xMid, yMid);
-		applet.curveVertex(curEndX, curEndY);
-		applet.curveVertex(curEndX, curEndY);
-		applet.endShape(); 
-		
-	}	
+//	public void draw(){
+//		interpolate = (float)(System.currentTimeMillis()-startTime)/growTime;
+//		
+//		if(curEndX <= xEnd){
+//			curEndX = xEnd;;
+//		}
+//		else {
+//			curEndX = (1-interpolate)*xStart + interpolate*xEnd;
+//			doneX = true;
+//		}
+//		
+//		if(curEndY >= yEnd){
+//			curEndY = yEnd;
+//		}
+//		else {
+//			curEndY = (1-interpolate)*yStart + interpolate*yEnd;
+//			doneY=true;
+//		}
+//		
+////		curEndX = (curEndX >= xEnd) ? xEnd : ((1-interpolate)*xStart + interpolate*xEnd);
+////		curEndY = (curEndY >= yEnd) ? yEnd : ((1-interpolate)*yStart + interpolate*yEnd);
+//		
+//		
+//		
+//		//calculate midpoint
+//		this.xMid = ((xStart + curEndX) /2.0f) - 2.5f * random;
+//		this.yMid = ((yStart + curEndY) /2.0f) + random * 2.6f;
+//
+//		applet.noFill();
+//		applet.stroke(204, 102, 0);
+//		applet.strokeWeight(weight);
+//		
+//		applet.beginShape();
+//
+//		//curve 
+//		applet.curveVertex(xStart, yStart);
+//		applet.curveVertex(xStart, yStart);
+//		//applet.curveVertex(.5f*midX + .5f*random , 1.5f*midY - random*.6f);
+//		applet.curveVertex(xMid, yMid);
+//		applet.curveVertex(curEndX, curEndY);
+//		applet.curveVertex(curEndX, curEndY);
+//		applet.endShape(); 
+//		
+//	}	
 }
 
