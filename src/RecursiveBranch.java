@@ -25,11 +25,11 @@ public class RecursiveBranch {
 	float curEndY;
 	float angle;
 	float random;
-	float weight;
 	long startTime;
 	int growTime = 6000;
 	float interpolate;
-//	float branchLength;
+	float currWeight;
+	float maxWeight;
 	float currentLength = 0;
 	float size;
 	boolean done = false;
@@ -52,7 +52,8 @@ public class RecursiveBranch {
 		
 		this.angle = angle;
 		this.applet = app;
-		this.weight = weight;
+		this.currWeight = weight - 0.01f;
+		maxWeight = weight + 0.001f;
 		// Calculate endpoint 
 		this.xEnd = endX;
 		this.yEnd = endY;
@@ -61,12 +62,13 @@ public class RecursiveBranch {
 	}
 	
 	public void draw(){
-		applet.strokeWeight(weight);
-		if(currentLength < 1f){
-			currentLength = currentLength + 0.5f;
-		}
-		else
-			done = true;
+		if(currWeight < maxWeight) currWeight = currWeight + 0.0001f;
+		else currWeight = maxWeight;
+	
+		applet.strokeWeight(currWeight);
+		
+		if(currentLength < 1f) currentLength = currentLength + 0.5f;
+		else done = true;
 
 		float x = applet.lerp(xStart, xEnd, currentLength);
 		float y = applet.lerp(yStart, yEnd, currentLength);
@@ -74,7 +76,7 @@ public class RecursiveBranch {
 	}
 
 	public boolean isDone(){
-		return (done);
+		return done;
 	}
 	
 	
@@ -82,23 +84,25 @@ public class RecursiveBranch {
 //		interpolate = (float)(System.currentTimeMillis()-startTime)/growTime;
 //		
 //		if(curEndX <= xEnd){
-//			curEndX = xEnd;;
+//			curEndX = xEnd;
+//			doneX = true;
 //		}
 //		else {
 //			curEndX = (1-interpolate)*xStart + interpolate*xEnd;
-//			doneX = true;
+//			
 //		}
 //		
 //		if(curEndY >= yEnd){
 //			curEndY = yEnd;
+//			doneY = true;
 //		}
 //		else {
 //			curEndY = (1-interpolate)*yStart + interpolate*yEnd;
-//			doneY=true;
+//			//doneY=true;
 //		}
 //		
-////		curEndX = (curEndX >= xEnd) ? xEnd : ((1-interpolate)*xStart + interpolate*xEnd);
-////		curEndY = (curEndY >= yEnd) ? yEnd : ((1-interpolate)*yStart + interpolate*yEnd);
+//		curEndX = (curEndX >= xEnd) ? xEnd : ((1-interpolate)*xStart + interpolate*xEnd);
+//		curEndY = (curEndY >= yEnd) ? yEnd : ((1-interpolate)*yStart + interpolate*yEnd);
 //		
 //		
 //		
@@ -108,7 +112,7 @@ public class RecursiveBranch {
 //
 //		applet.noFill();
 //		applet.stroke(204, 102, 0);
-//		applet.strokeWeight(weight);
+//		applet.strokeWeight(currWeight);
 //		
 //		applet.beginShape();
 //

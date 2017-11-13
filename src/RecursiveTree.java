@@ -91,10 +91,10 @@ public class RecursiveTree {
 		
 	/* draw branches in branch array */
 	public void draw() {
-//		for(Branch b : branches) {
-//			b.draw();
-//		}
-		
+		/*for(RecursiveBranch b : branches) {
+			b.draw();
+		}
+		*/
 		drawTrunk();
 		
 		// draw branches if drawing trunk is done
