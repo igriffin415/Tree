@@ -74,7 +74,7 @@ public class RecursiveBranch {
 	}
 
 	public boolean isDone(){
-		return (doneX && doneY);
+		return (done);
 	}
 	
 	
