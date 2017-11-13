@@ -82,16 +82,20 @@ public class RecursiveBranch {
 		interpolate = (float)(System.currentTimeMillis()-startTime)/growTime;
 		
 		if(curEndX <= xEnd){
+			curEndX = xEnd;;
+		}
+		else {
 			curEndX = (1-interpolate)*xStart + interpolate*xEnd;
-		}
-		else
 			doneX = true;
-		
-		if(curEndY <= yEnd){
-			curEndY = (1-interpolate)*yStart + interpolate*yEnd;
 		}
-		else
-			doneY = true;
+		
+		if(curEndY >= yEnd){
+			curEndY = yEnd;
+		}
+		else {
+			curEndY = (1-interpolate)*yStart + interpolate*yEnd;
+			doneY=true;
+		}
 		
 //		curEndX = (curEndX >= xEnd) ? xEnd : ((1-interpolate)*xStart + interpolate*xEnd);
 //		curEndY = (curEndY >= yEnd) ? yEnd : ((1-interpolate)*yStart + interpolate*yEnd);
