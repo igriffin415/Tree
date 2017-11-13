@@ -182,8 +182,6 @@ public class RecursiveTreeApp extends PApplet {
 			strokeWeight(.1f);
 			ellipse(vec.x, vec.y, .1f, .1f);
 		}
-		
-		
 	}
 	
 	//calculate the y difference between current location and the last location

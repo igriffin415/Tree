@@ -10,7 +10,7 @@ public class Seed {
 		app = a;
 		this.x = x;
 		this.y = y;
-		speed = .005f;
+		speed = .008f;
 		color = app.color(185, 156, 107);
 	}
 	
