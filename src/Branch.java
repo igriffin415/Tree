@@ -14,7 +14,7 @@ public class Branch {
 	private static final int LENGTH = 1;
 	private static final float FINAL_SIZE = 1.0f;
 	private static final float SPEED = 0.001f;
-	private static final float MAX_STROKE = 0.06f;
+	private static final float MAX_STROKE = 0.05f;
 	
 	float xStart;
 	float yStart;
