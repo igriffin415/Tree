@@ -157,13 +157,9 @@ public class RecursiveTreeApp extends PApplet {
 	 */
 	public boolean checkIntersect(PVector hand1, PVector hand2) {	
 		float diam = .65f;
-		if (hand1!=null && hand2!=null)	{
-			//calculate the distance between the hands
-			float distance = dist(hand1.x, hand1.y, hand2.x, hand2.y);
-			if(distance <= diam) {
-				return true;
-			}
-		}
+		float distance = getDistance(hand1, hand2);
+		if(distance > 0 && distance <= diam)
+			return true;
 		return false;
 	}
 	
