@@ -14,6 +14,7 @@ public class Branch {
 	private static final int LENGTH = 1;
 	private static final float FINAL_SIZE = 1.0f;
 	private static final float SPEED = 0.001f;
+	private static final float MAX_STROKE = 0.06f;
 	
 	float xStart;
 	float yStart;
@@ -24,6 +25,7 @@ public class Branch {
 	float curEndX;
 	float curEndY;
 	float angle;
+	float currStroke = 0.003f;
 	float random;
 	long startTime;
 	int growTime = 5000;
@@ -71,14 +73,14 @@ public class Branch {
 
 		applet.noFill();
 		applet.stroke(204, 102, 0);
-		applet.strokeWeight(.05f);
+		if(currStroke < MAX_STROKE) currStroke = currStroke + 0.0001f;
+		else currStroke = MAX_STROKE;
+	
+		applet.strokeWeight(currStroke);
 		
 		applet.beginShape();
-
-		//curve 
 		applet.curveVertex(xStart, yStart);
 		applet.curveVertex(xStart, yStart);
-		//applet.curveVertex(.5f*midX + .5f*random , 1.5f*midY - random*.6f);
 		applet.curveVertex(xMid, yMid);
 		applet.curveVertex(curEndX, curEndY);
 		applet.curveVertex(curEndX, curEndY);
