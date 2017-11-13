@@ -5,6 +5,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class RecursiveTreeApp extends PApplet {
+	private static float DEFAULT_SPEED;
 	
 	public static enum COLOR_STATE { RED, GREEN, BLUE };
 	public COLOR_STATE colorState = COLOR_STATE.RED;
@@ -28,6 +29,8 @@ public class RecursiveTreeApp extends PApplet {
 	boolean HLgoingUp = false;
 	float HLcurrY = 0;
 	int HLintensity = -1;
+	
+	float speed = DEFAULT_SPEED;
 
 	
 	float bottom;
@@ -154,14 +157,21 @@ public class RecursiveTreeApp extends PApplet {
 	 */
 	public boolean checkIntersect(PVector hand1, PVector hand2) {	
 		float diam = .65f;
-		if (hand1!=null && hand2!=null)	{
-			//calculate the distance between the hands
-			float distance = dist(hand1.x, hand1.y, hand2.x, hand2.y);
-			if(distance <= diam) {
-				return true;
-			}
-		}
+		float distance = getDistance(hand1, hand2);
+		if(distance > 0 && distance <= diam)
+			return true;
 		return false;
+	}
+	
+	public float getDistance(PVector pt1, PVector pt2) {
+		float distance = 0;
+		if(pt1 != null && pt2 != null) {
+			distance = dist(pt1.x, pt1.y, pt2.x, pt2.y);
+		}
+		else {
+			distance = -1;
+		}
+		return distance;
 	}
 	
 	public void drawIfValid(PVector vec) {
@@ -172,8 +182,6 @@ public class RecursiveTreeApp extends PApplet {
 			strokeWeight(.1f);
 			ellipse(vec.x, vec.y, .1f, .1f);
 		}
-		
-		
 	}
 	
 	//calculate the y difference between current location and the last location

@@ -52,9 +52,11 @@ public class RecursiveBranch {
 		
 		this.angle = angle;
 		this.applet = app;
+
 		this.currWeight = weight - 0.01f;
 		maxWeight = weight + 0.001f;
 		// Calculate endpoint 
+
 		this.xEnd = endX;
 		this.yEnd = endY;
 		
@@ -75,9 +77,10 @@ public class RecursiveBranch {
 		applet.line(xStart, yStart, x, y);
 	}
 
-	public boolean isDone(){
+	public boolean isDone() {
 		return done;
 	}
+
 	
 	
 //	public void draw(){
@@ -126,5 +129,6 @@ public class RecursiveBranch {
 //		applet.endShape(); 
 //		
 //	}	
+
 }
 

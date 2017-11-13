@@ -27,5 +27,10 @@ public class Person {
 		return null;
 	}
 	
-
+	public PVector getHead() {
+		PVector head = body.getJoint(Body.HEAD);
+		if(head != null)
+			return head;
+		return null;
+	}
 }
