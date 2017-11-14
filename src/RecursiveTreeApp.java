@@ -139,6 +139,22 @@ public class RecursiveTreeApp extends PApplet {
 			if(seed != null && seed.getY() <= bottom && tree == null) {
 				tree = new RecursiveTree(this, seed.getX(), bottom);
 			}
+			
+			if(tree != null){
+				if( getDistance(pers1.getHead(), pers2.getHead()) < 0.5f && getDistance(pers1.getHead(), pers2.getHead()) > 0 ){
+					tree.drawLeaf();
+					//tree.drawLeaf();
+					//tree.drawLeaf();
+				}
+				else if( getDistance(pers1.getHead(), pers2.getHead()) >= 0.5f && getDistance(pers1.getHead(), pers2.getHead()) < 1f ){
+					tree.drawLeaf();
+				}
+				
+				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand()))
+					tree.turnYellow();
+					System.out.println(getIntensityHR(pers1.getRightHand()) +"    " + getIntensityHL(pers1.getRightHand()));
+			}
+			
 		}
 		else if(twoPeople.size() == 0) {
 			tree = null;

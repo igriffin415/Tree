@@ -29,7 +29,7 @@ public class RecursiveTree {
 	
 	ArrayList<RecursiveBranch> branches = new ArrayList<RecursiveBranch>();
 	ArrayList<Leaf> leaves = new ArrayList<Leaf>();
-
+	ArrayList<PVector> leafPosition = new ArrayList<PVector>();
 	
 	public RecursiveTree(PApplet app, float start, float bottom) {
 		this.app = app;
@@ -112,7 +112,7 @@ public class RecursiveTree {
 		if(branches.get(branches.size()-1).isDone()){
 			for(Leaf l : leaves){
 				app.noStroke();
-				l.draw(false);
+				l.draw();
 			}
 		}
 		
@@ -120,9 +120,23 @@ public class RecursiveTree {
 		
 	}
 	
+	public void turnYellow(){
+		for(Leaf l : leaves){
+			app.noStroke();
+			l.turnRed();
+		}
+	}
 	
 	public void drawLeaf(){
 		
+		if(leafPosition.size() > 0){
+			
+			leaves.add(new Leaf(app, leafPosition.get(0).x, leafPosition.get(0).y));
+	    	leaves.add(new Leaf(app, leafPosition.get(0).x-0.06f+app.random(0.06f), leafPosition.get(0).y-0.18f+app.random(0.2f)));
+	    	leaves.add(new Leaf(app, leafPosition.get(0).x-0.06f+app.random(0.06f), leafPosition.get(0).y-0.18f+app.random(0.2f)));
+
+			leafPosition.remove(0);
+		}
 	}
 	
 	public void drawTrunk(){

@@ -12,11 +12,12 @@ public class Leaf {
 	int[] color = new int[3];
 	int transparency = 150;
 	int x_direction = (int)(Math.random()*2);
+	float x_speed;
 	int changeInGreen = 0;
 	static final int MAX_RED = 220; 
 	static final int MAX_GREEN = (int)(Math.random()*255); 
 	
-	public static enum LEAF_STATE { RED, GREEN, FALL, FADE };
+	public static enum LEAF_STATE { GREEN, FALL, FADE };
 	public LEAF_STATE leafState = LEAF_STATE.GREEN;
 	
 	public Leaf(PApplet a, float x, float y){
@@ -25,6 +26,8 @@ public class Leaf {
 		this.y = y;
 		// random falling speed
 		speed = (float)Math.random()*0.003f + 0.002f;
+		
+		x_speed = 0.0005f + app.random(0.002f);
 		// random size of leaf
 		this.size = (float)Math.random()*0.1f + 0.07f;
 		// generate random greenish color
@@ -38,9 +41,9 @@ public class Leaf {
 			y = y - speed;
 
 			if(x_direction == 0)
-				x = x - 0.002f;
+				x = x - x_speed;
 			else
-				x = x + 0.002f;
+				x = x + x_speed;
 		}
 		else
 			leafState = LEAF_STATE.FADE;
@@ -62,6 +65,7 @@ public class Leaf {
 			color[0] = color[0] + 1;
 		else
 			leafState = LEAF_STATE.FALL;
+			//falling();
 
 		if(changeInGreen < 60){
 			color[1] = color[1] - 1;
@@ -72,20 +76,16 @@ public class Leaf {
 			color[2] = color[2] - 1;
 	}
 	
-	public void draw(boolean trig){
+	public void draw(){
 		
-		if(trig){
 			switch (leafState) {
-			case RED:
-				turnRed();
-				break;
 			case FALL:
 				falling();
 				break;
 			case FADE:
 				fadeaway();
 			}
-		}
+		
 		
 		app.fill(color[0], color[1], color[2], transparency);
 		app.ellipse(x, y, size, size);
