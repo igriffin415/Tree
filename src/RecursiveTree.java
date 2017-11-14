@@ -28,11 +28,11 @@ public class RecursiveTree {
 	int numLeavesShown = 0;
 	
 	boolean done = false;
-	
 	boolean drawLeaves = false;
 	
 	ArrayList<RecursiveBranch> branches = new ArrayList<RecursiveBranch>();
 	ArrayList<Leaf> leaves = new ArrayList<Leaf>();
+	ArrayList<Float[]> leafPositions= new ArrayList<Float[]>();
 	ArrayList<PVector> leafPosition = new ArrayList<PVector>();
 	
 	public RecursiveTree(PApplet app, float start, float bottom) {
@@ -49,11 +49,7 @@ public class RecursiveTree {
 		// Base case 
 	    if( generation == 0 )
 	    {  
-	    	leaves.add(new Leaf(app, startingPoint.x, startingPoint.y, false));
-	    	//leaves.add(new Leaf(app, startingPoint.x+app.random(0.06f), startingPoint.y+app.random(0.02f)));
-	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f), false));
-	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f), false));
-	    	//leafPosition.add(new PVector(startingPoint.x, startingPoint.y));
+	    	leafPositions.add(new Float[] {startingPoint.x, startingPoint.y});
 	    }
 	    
 	    else if (generation > 0)
@@ -133,11 +129,16 @@ public class RecursiveTree {
 	}
 	
 	public void drawLeaf(){
-		if(leaves.size() > 0 && numLeavesShown < leaves.size()){
-			Leaf l = leaves.get(numLeavesShown);
-			if(l != null)
-				l.setVisible(true);
-			numLeavesShown += 1;
+		
+		if(leafPositions.size() > 0){
+			float x = leafPositions.get(0)[0];
+			float y = leafPositions.get(0)[1];
+			
+			leaves.add(new Leaf(app, x, y));
+	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
+	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
+
+			leafPositions.remove(0);
 		}
 	}
 	
