@@ -26,9 +26,11 @@ public class RecursiveTree {
 	float maxBranchAngle;
 	
 	boolean done = false;
+	boolean drawLeaves = false;
 	
 	ArrayList<RecursiveBranch> branches = new ArrayList<RecursiveBranch>();
 	ArrayList<Leaf> leaves = new ArrayList<Leaf>();
+	ArrayList<Float[]> leafPositions= new ArrayList<Float[]>();
 	ArrayList<PVector> leafPosition = new ArrayList<PVector>();
 	
 	public RecursiveTree(PApplet app, float start, float bottom) {
@@ -45,11 +47,13 @@ public class RecursiveTree {
 		// Base case 
 	    if( generation == 0 )
 	    {  
-	    	leaves.add(new Leaf(app, startingPoint.x, startingPoint.y));
-	    	//leaves.add(new Leaf(app, startingPoint.x+app.random(0.06f), startingPoint.y+app.random(0.02f)));
-	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f)));
-	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f)));
-	    	//leafPosition.add(new PVector(startingPoint.x, startingPoint.y));
+	    	leafPositions.add(new Float[] {startingPoint.x, startingPoint.y});
+	    	
+////	    	leaves.add(new Leaf(app, startingPoint.x, startingPoint.y));
+////	    	//leaves.add(new Leaf(app, startingPoint.x+app.random(0.06f), startingPoint.y+app.random(0.02f)));
+////	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f)));
+//	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f)));
+//	    	//leafPosition.add(new PVector(startingPoint.x, startingPoint.y));
 	    }
 	    
 	    else if (generation > 0)
@@ -110,6 +114,7 @@ public class RecursiveTree {
 		
 		// draw leaves if drawing branches is done
 		if(branches.get(branches.size()-1).isDone()){
+			drawLeaves = true;
 			for(Leaf l : leaves){
 				app.noStroke();
 				l.draw();
@@ -129,13 +134,15 @@ public class RecursiveTree {
 	
 	public void drawLeaf(){
 		
-		if(leafPosition.size() > 0){
+		if(leafPositions.size() > 0){
+			float x = leafPositions.get(0)[0];
+			float y = leafPositions.get(0)[1];
 			
-			leaves.add(new Leaf(app, leafPosition.get(0).x, leafPosition.get(0).y));
-	    	leaves.add(new Leaf(app, leafPosition.get(0).x-0.06f+app.random(0.06f), leafPosition.get(0).y-0.18f+app.random(0.2f)));
-	    	leaves.add(new Leaf(app, leafPosition.get(0).x-0.06f+app.random(0.06f), leafPosition.get(0).y-0.18f+app.random(0.2f)));
+			leaves.add(new Leaf(app, x, y));
+	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
+	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
 
-			leafPosition.remove(0);
+			leafPositions.remove(0);
 		}
 	}
 	
@@ -154,6 +161,10 @@ public class RecursiveTree {
 		// Calculare and store the length of trunk
 		
 		// Paint branches using the recursive method        
+	}
+	
+	public boolean canDrawLeaves() {
+		return drawLeaves;
 	}
 	
 	

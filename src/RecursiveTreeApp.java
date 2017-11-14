@@ -137,11 +137,9 @@ public class RecursiveTreeApp extends PApplet {
 				tree = new RecursiveTree(this, seed.getX(), bottom);
 			}
 			
-			if(tree != null){
+			if(tree != null && tree.canDrawLeaves()){
 				if( getDistance(pers1.getHead(), pers2.getHead()) < 0.5f && getDistance(pers1.getHead(), pers2.getHead()) > 0 ){
 					tree.drawLeaf();
-					//tree.drawLeaf();
-					//tree.drawLeaf();
 				}
 				else if( getDistance(pers1.getHead(), pers2.getHead()) >= 0.5f && getDistance(pers1.getHead(), pers2.getHead()) < 1f ){
 					tree.drawLeaf();
@@ -149,7 +147,6 @@ public class RecursiveTreeApp extends PApplet {
 				
 				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand()))
 					tree.turnYellow();
-//					System.out.println(getIntensityHR(pers1.getRightHand()) +"    " + getIntensityHL(pers1.getRightHand()));
 			}
 			
 		}
@@ -184,7 +181,6 @@ public class RecursiveTreeApp extends PApplet {
 		else {
 			distance = -1;
 		}
-		System.out.println(distance);
 		return distance;
 	}
 	
