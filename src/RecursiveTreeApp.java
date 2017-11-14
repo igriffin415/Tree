@@ -5,7 +5,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class RecursiveTreeApp extends PApplet {
-	private static float DEFAULT_SPEED;
+	private static long DEFAULT_STAGGER = 5000; //ms
 	
 	public static enum COLOR_STATE { RED, GREEN, BLUE };
 	public COLOR_STATE colorState = COLOR_STATE.RED;
@@ -30,7 +30,8 @@ public class RecursiveTreeApp extends PApplet {
 	float HLcurrY = 0;
 	int HLintensity = -1;
 	
-	float speed = DEFAULT_SPEED;
+	long curStagger = DEFAULT_STAGGER;
+	long prevLeaf = 0;
 
 	
 	float bottom;
@@ -137,19 +138,25 @@ public class RecursiveTreeApp extends PApplet {
 				tree = new RecursiveTree(this, seed.getX(), bottom);
 			}
 			
-			if(tree != null){
+			if(tree != null && tree.canDrawLeaves()){
 				if( getDistance(pers1.getHead(), pers2.getHead()) < 0.5f && getDistance(pers1.getHead(), pers2.getHead()) > 0 ){
-					tree.drawLeaf();
-					//tree.drawLeaf();
-					//tree.drawLeaf();
+					curStagger += 1000;
 				}
 				else if( getDistance(pers1.getHead(), pers2.getHead()) >= 0.5f && getDistance(pers1.getHead(), pers2.getHead()) < 1f ){
+					curStagger -= 1000;
+				}
+				
+				if(curStagger <= 0) {
+					curStagger = DEFAULT_STAGGER;
+				}
+				
+				if((System.currentTimeMillis() - prevLeaf) > curStagger) {
+					prevLeaf = System.currentTimeMillis();
 					tree.drawLeaf();
 				}
 				
 				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand()))
 					tree.turnYellow();
-//					System.out.println(getIntensityHR(pers1.getRightHand()) +"    " + getIntensityHL(pers1.getRightHand()));
 			}
 			
 		}
@@ -184,7 +191,6 @@ public class RecursiveTreeApp extends PApplet {
 		else {
 			distance = -1;
 		}
-		System.out.println(distance);
 		return distance;
 	}
 	

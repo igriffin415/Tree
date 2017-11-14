@@ -25,7 +25,11 @@ public class RecursiveTree {
 	
 	float maxBranchAngle;
 	
+	int numLeavesShown = 0;
+	
 	boolean done = false;
+	
+	boolean drawLeaves = false;
 	
 	ArrayList<RecursiveBranch> branches = new ArrayList<RecursiveBranch>();
 	ArrayList<Leaf> leaves = new ArrayList<Leaf>();
@@ -45,10 +49,10 @@ public class RecursiveTree {
 		// Base case 
 	    if( generation == 0 )
 	    {  
-	    	leaves.add(new Leaf(app, startingPoint.x, startingPoint.y));
+	    	leaves.add(new Leaf(app, startingPoint.x, startingPoint.y, false));
 	    	//leaves.add(new Leaf(app, startingPoint.x+app.random(0.06f), startingPoint.y+app.random(0.02f)));
-	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f)));
-	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f)));
+	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f), false));
+	    	leaves.add(new Leaf(app, startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f), false));
 	    	//leafPosition.add(new PVector(startingPoint.x, startingPoint.y));
 	    }
 	    
@@ -110,6 +114,7 @@ public class RecursiveTree {
 		
 		// draw leaves if drawing branches is done
 		if(branches.get(branches.size()-1).isDone()){
+			drawLeaves = true;
 			for(Leaf l : leaves){
 				app.noStroke();
 				l.draw();
@@ -128,14 +133,11 @@ public class RecursiveTree {
 	}
 	
 	public void drawLeaf(){
-		
-		if(leafPosition.size() > 0){
-			
-			leaves.add(new Leaf(app, leafPosition.get(0).x, leafPosition.get(0).y));
-	    	leaves.add(new Leaf(app, leafPosition.get(0).x-0.06f+app.random(0.06f), leafPosition.get(0).y-0.18f+app.random(0.2f)));
-	    	leaves.add(new Leaf(app, leafPosition.get(0).x-0.06f+app.random(0.06f), leafPosition.get(0).y-0.18f+app.random(0.2f)));
-
-			leafPosition.remove(0);
+		if(leaves.size() > 0 && numLeavesShown < leaves.size()){
+			Leaf l = leaves.get(numLeavesShown);
+			if(l != null)
+				l.setVisible(true);
+			numLeavesShown += 1;
 		}
 	}
 	
@@ -154,6 +156,10 @@ public class RecursiveTree {
 		// Calculare and store the length of trunk
 		
 		// Paint branches using the recursive method        
+	}
+	
+	public boolean canDrawLeaves() {
+		return drawLeaves;
 	}
 	
 	

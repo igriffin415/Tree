@@ -16,12 +16,14 @@ public class Leaf {
 	int changeInGreen = 0;
 	static final int MAX_RED = 220; 
 	static final int MAX_GREEN = (int)(Math.random()*255); 
+	boolean visible;
 	
 	public static enum LEAF_STATE { GREEN, FALL, FADE };
 	public LEAF_STATE leafState = LEAF_STATE.GREEN;
 	
-	public Leaf(PApplet a, float x, float y){
+	public Leaf(PApplet a, float x, float y, boolean enabled){
 		this.app = a;
+		this.visible = enabled;
 		this.x = x;
 		this.y = y;
 		// random falling speed
@@ -77,7 +79,7 @@ public class Leaf {
 	}
 	
 	public void draw(){
-		
+		if(this.visible) {
 			switch (leafState) {
 			case FALL:
 				falling();
@@ -85,9 +87,13 @@ public class Leaf {
 			case FADE:
 				fadeaway();
 			}
-		
-		
-		app.fill(color[0], color[1], color[2], transparency);
-		app.ellipse(x, y, size, size);
+			
+			app.fill(color[0], color[1], color[2], transparency);
+			app.ellipse(x, y, size, size);
+		}
+	}
+	
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 }
