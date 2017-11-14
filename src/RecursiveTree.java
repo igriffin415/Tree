@@ -137,7 +137,8 @@ public class RecursiveTree {
 			leaves.add(new Leaf(app, x, y));
 	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
 	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
-
+	    	
+	    	leafPositions.add(new Float[] {x, y});
 			leafPositions.remove(0);
 		}
 	}
