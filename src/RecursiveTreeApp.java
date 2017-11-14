@@ -101,9 +101,6 @@ public class RecursiveTreeApp extends PApplet {
 		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
 		//don't want a tree and seed 
 		if(tree != null) {
-			this.strokeWeight(.01f);
-			//tree.update();
-			//fill(130, 84, 59);
 			tree.draw();
 		}
 		else if(seed != null) {
@@ -152,7 +149,7 @@ public class RecursiveTreeApp extends PApplet {
 				
 				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand()))
 					tree.turnYellow();
-					System.out.println(getIntensityHR(pers1.getRightHand()) +"    " + getIntensityHL(pers1.getRightHand()));
+//					System.out.println(getIntensityHR(pers1.getRightHand()) +"    " + getIntensityHL(pers1.getRightHand()));
 			}
 			
 		}
@@ -187,6 +184,7 @@ public class RecursiveTreeApp extends PApplet {
 		else {
 			distance = -1;
 		}
+		System.out.println(distance);
 		return distance;
 	}
 	
