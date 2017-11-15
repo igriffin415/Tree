@@ -99,8 +99,8 @@ public class RecursiveTreeApp extends PApplet {
 			{
 				Person p = twoPeople.get(b.getId());
 				p.update(b);
-				drawIfValid(p.getLeftHand());
-				drawIfValid(p.getRightHand());
+				//drawIfValid(p.getLeftHand());
+				//drawIfValid(p.getRightHand());
 			}
 		}
 		

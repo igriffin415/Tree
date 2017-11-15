@@ -8,14 +8,15 @@ public class Cloud {
 	public static final float SPEEDX = 0.001f;
 	public static final float SPEEDY = 0.0005f;
 	float randomYStart;
-	
+	float ran;
 	PApplet app;
 	boolean rightLeft = false;
 	float x = 3.0f, y = 2.0f;
 
 	public Cloud(PApplet a, boolean leftDirection) {
 		app = a;
-		randomYStart = .2f + (float)(Math.random() * .8f); 
+		randomYStart = 0.0f + (float)(Math.random() * .8f); 
+		ran = 1.0f + (float)(Math.random() * 1000.0f); 
 		rightLeft = leftDirection;
 		if(rightLeft) x = STARTX;
 		else x = -STARTX;
@@ -29,7 +30,7 @@ public class Cloud {
 			
 			x = x - SPEEDX;
 			
-			float changeY = (float) Math.sin(app.millis()/500f) * 0.006f ;
+			float changeY = (float) Math.sin((app.millis()+ran)/500f) * 0.006f ;
 			y = y + changeY;
 
 			app.noStroke();
