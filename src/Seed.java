@@ -19,6 +19,8 @@ public class Seed {
 	}
 	
 	public void draw() {
+		
+		app.strokeWeight(.1f);
 		app.stroke(color);
 		app.fill(color);
 		app.ellipse(x, y, .01f, .03f);

@@ -15,7 +15,7 @@ public class RecursiveTree {
 	/** Maximum branching angle of a branch from the trunk **/
 
 	/** Number of branches **/
-	public static final int NUM_BRANCHES = 3; //4 
+	public static final int NUM_BRANCHES = 4; //4 
 	
 	final static float TRUNK_LENGTH = 0.9f;
 	
