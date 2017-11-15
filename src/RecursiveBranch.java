@@ -4,15 +4,6 @@ import java.util.Random;
 import processing.core.PApplet;
 
 public class RecursiveBranch {
-	// starting point (x,y)
-	// drawing a curve
-	// every (TIME) change random angle
-
-//	private static final float WIDTH = .2f;
-//
-//	private static final int LENGTH = 1;
-//	private static final float FINAL_SIZE = 1.0f;
-//	private static final float SPEED = 0.003f;
 	
 	float xStart;
 	float yStart;
@@ -57,8 +48,7 @@ public class RecursiveBranch {
 		maxWeight = weight + 0.001f;
 
 		this.xEnd = endX;
-		this.yEnd = endY;
-		
+		this.yEnd = endY;	
 	}
 	
 	public void draw(){
