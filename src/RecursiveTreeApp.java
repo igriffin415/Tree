@@ -34,7 +34,6 @@ public class RecursiveTreeApp extends PApplet {
 	
 	long curStagger = DEFAULT_STAGGER;
 	long prevLeaf = 0;
-
 	
 	float bottom;
 	
@@ -44,7 +43,7 @@ public class RecursiveTreeApp extends PApplet {
 	public static float PROJECTOR_RATIO = 1080f/1920.0f;
 
 	public void settings() {
-		createWindow(true, false, .5f);
+		createWindow(true, true, .5f);
 	}
 
 	public void setup(){
@@ -77,6 +76,7 @@ public class RecursiveTreeApp extends PApplet {
 
 		tracker.update(bodyData);
 		background(204, 230, 255);
+		
 		cloud1.draw();
 		cloud2.draw();
 		for(Long id : tracker.getEnters()) {
@@ -164,7 +164,7 @@ public class RecursiveTreeApp extends PApplet {
 				}
 				
 				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand()))
-					tree.turnYellow();
+						tree.turnYellow();
 			}
 			
 		}
@@ -211,6 +211,7 @@ public class RecursiveTreeApp extends PApplet {
 			ellipse(vec.x, vec.y, .1f, .1f);
 		}
 	}
+	
 	
 	//calculate the y difference between current location and the last location
 	public float diffVel(float oldVel, float lastY,  float curY){
