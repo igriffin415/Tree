@@ -138,6 +138,9 @@ public class RecursiveTreeApp extends PApplet {
 				tree = new RecursiveTree(this, seed.getX(), bottom);
 			}
 			
+			if(tree != null)
+				tree.setGrowSpeed(getDistance(pers1.getHead(), pers2.getHead()));
+			
 			if(tree != null && tree.canDrawLeaves()){
 				if( getDistance(pers1.getHead(), pers2.getHead()) < 0.5f && getDistance(pers1.getHead(), pers2.getHead()) > 0 ){
 					curStagger += 1000;

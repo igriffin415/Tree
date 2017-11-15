@@ -8,12 +8,11 @@ public class RecursiveBranch {
 	// drawing a curve
 	// every (TIME) change random angle
 
-	private static final float WIDTH = .2f;
-	private static final float DECREASE = .005f;
-
-	private static final int LENGTH = 1;
-	private static final float FINAL_SIZE = 1.0f;
-	private static final float SPEED = 0.003f;
+//	private static final float WIDTH = .2f;
+//
+//	private static final int LENGTH = 1;
+//	private static final float FINAL_SIZE = 1.0f;
+//	private static final float SPEED = 0.003f;
 	
 	float xStart;
 	float yStart;
@@ -37,7 +36,8 @@ public class RecursiveBranch {
 	boolean popped;
 	boolean doneX = false, doneY = false;
 
-
+	float growthSpeed = 0;
+	
 	public RecursiveBranch(PApplet app, float angle, float startX, float startY, float endX, float endY, float weight){
 		//get random for curves
 		Random rand = new Random();
@@ -55,12 +55,10 @@ public class RecursiveBranch {
 
 		this.currWeight = weight - 0.01f;
 		maxWeight = weight + 0.001f;
-		// Calculate endpoint 
 
 		this.xEnd = endX;
 		this.yEnd = endY;
 		
-//		branchLength = app.dist(xStart, yStart, xEnd, yEnd);
 	}
 	
 	public void draw(){
@@ -81,54 +79,15 @@ public class RecursiveBranch {
 		return done;
 	}
 
-	
-	
-//	public void draw(){
-//		interpolate = (float)(System.currentTimeMillis()-startTime)/growTime;
-//		
-//		if(curEndX <= xEnd){
-//			curEndX = xEnd;
-//			doneX = true;
-//		}
-//		else {
-//			curEndX = (1-interpolate)*xStart + interpolate*xEnd;
-//			
-//		}
-//		
-//		if(curEndY >= yEnd){
-//			curEndY = yEnd;
-//			doneY = true;
-//		}
-//		else {
-//			curEndY = (1-interpolate)*yStart + interpolate*yEnd;
-//			//doneY=true;
-//		}
-//		
-//		curEndX = (curEndX >= xEnd) ? xEnd : ((1-interpolate)*xStart + interpolate*xEnd);
-//		curEndY = (curEndY >= yEnd) ? yEnd : ((1-interpolate)*yStart + interpolate*yEnd);
-//		
-//		
-//		
-//		//calculate midpoint
-//		this.xMid = ((xStart + curEndX) /2.0f) - 2.5f * random;
-//		this.yMid = ((yStart + curEndY) /2.0f) + random * 2.6f;
-//
-//		applet.noFill();
-//		applet.stroke(204, 102, 0);
-//		applet.strokeWeight(currWeight);
-//		
-//		applet.beginShape();
-//
-//		//curve 
-//		applet.curveVertex(xStart, yStart);
-//		applet.curveVertex(xStart, yStart);
-//		//applet.curveVertex(.5f*midX + .5f*random , 1.5f*midY - random*.6f);
-//		applet.curveVertex(xMid, yMid);
-//		applet.curveVertex(curEndX, curEndY);
-//		applet.curveVertex(curEndX, curEndY);
-//		applet.endShape(); 
-//		
-//	}	
-
+	public void setGrowSpeed(float distance){
+		if( distance > 2 )
+			growthSpeed = 0.005f;			
+		else if( distance > 1.1 )
+			growthSpeed = 0.1f;
+		else if( distance > 0.8 )
+			growthSpeed = 0.2f;
+		else if( distance > 0.5 )
+			growthSpeed = 0.5f;
+	}
 }
 

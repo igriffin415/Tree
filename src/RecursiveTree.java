@@ -27,6 +27,8 @@ public class RecursiveTree {
 	
 	int numLeavesShown = 0;
 	
+	float growthSpeed = 0;
+	
 	boolean done = false;
 	boolean drawLeaves = false;
 	
@@ -83,18 +85,9 @@ public class RecursiveTree {
 		return new PVector( (float)(p.x + length*Math.cos(angle)), (float)(p.y + length*Math.sin(angle))); // y is sin
 	}
 	
-	/* adds branch to branch array */
-//	private void addBranch() {
-//		float angle = (float)(Math.random() * 120) + 30;
-//		Branch b = new Branch(start, bottom, angle, app);
-//	}
 		
-	/* draw branches in branch array */
 	public void draw() {
-		/*for(RecursiveBranch b : branches) {
-			b.draw();
-		}
-		*/
+
 		drawTrunk();
 		
 		// draw branches if drawing trunk is done
@@ -136,7 +129,6 @@ public class RecursiveTree {
 			
 			leaves.add(new Leaf(app, x, y));
 	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
-	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
 	    	
 	    	leafPositions.add(new Float[] {x, y});
 			leafPositions.remove(0);
@@ -148,28 +140,33 @@ public class RecursiveTree {
 		app.strokeWeight(TRUNK_WEIGHT);
 		
 		if(trunkLength < TRUNK_LENGTH)
-			trunkLength = trunkLength + 0.025f;
+			trunkLength = trunkLength + growthSpeed;
 		else
 			done = true;
 		app.stroke(130, 84, 59);
 		app.line(start, bottom, start, bottom + trunkLength);
+	
+	}
+	
+	public void setGrowSpeed(float distance){
+		if( distance > 2 )
+			growthSpeed = 0.0001f;			
+		else if( distance > 1.1 )
+			growthSpeed = 0.0010f;
+		else if( distance > 0.8 )
+			growthSpeed = 0.0020f;
+		else if( distance > 0.5 )
+			growthSpeed = 0.0030f;
+		else if( distance > 0.3 )
+			growthSpeed = 0.0050f;
 		
-		//float trunkangle = (float)Math.atan2(bottom+TRUNK_LENGTH - bottom, 0);
-		// Calculare and store the length of trunk
-		
-		// Paint branches using the recursive method        
+		for(RecursiveBranch b : branches){
+			b.setGrowSpeed(distance);
+		}
 	}
 	
 	public boolean canDrawLeaves() {
 		return drawLeaves;
 	}
 	
-	
-	/* fill branch array */
-//	private void fillBranches() {
-//		for(int i=0; i < branches.length; i++) {
-//			float angle = (float)(Math.random() * 120) + 30;
-//			branches[i] = new Branch(start, bottom, angle, app);
-//		}
-//	}
 }
