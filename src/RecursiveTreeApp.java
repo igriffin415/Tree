@@ -15,6 +15,7 @@ public class RecursiveTreeApp extends PApplet {
 	HashMap<Long, Person> twoPeople = new HashMap<Long, Person>();
 	Person pers1, pers2;
 	Seed seed;
+	Cloud cloud;
 	RecursiveTree tree;
 	//handRight variables for getIntensity method
 	float HRprevY = 0;
@@ -63,6 +64,7 @@ public class RecursiveTreeApp extends PApplet {
 		
 		seed = null;
 		tree = null;
+		cloud = new Cloud(this);
 		kinectReader.start();
 
 	}
@@ -73,7 +75,7 @@ public class RecursiveTreeApp extends PApplet {
 
 		tracker.update(bodyData);
 		background(204, 230, 255);
-
+		cloud.draw();
 		for(Long id : tracker.getEnters()) {
 			tracks.put(id,  new Person(this, .1f));
 			if(twoPeople.size() < 2)
