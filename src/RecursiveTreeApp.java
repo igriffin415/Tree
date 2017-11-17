@@ -43,7 +43,7 @@ public class RecursiveTreeApp extends PApplet {
 	public static float PROJECTOR_RATIO = 1080f/1920.0f;
 
 	public void settings() {
-		createWindow(true, true, .5f);
+		createWindow(true, false, .5f);
 	}
 
 	public void setup(){
@@ -163,8 +163,26 @@ public class RecursiveTreeApp extends PApplet {
 					tree.drawLeaf();
 				}
 				
-				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand()))
+				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand())){
+					if(getIntensityHR(pers1.getRightHand()) > 4 || getIntensityHL(pers1.getLeftHand()) > 4){
 						tree.turnYellow();
+						tree.turnYellow();
+						tree.turnYellow();
+						tree.turnYellow();
+					}
+					else if(getIntensityHR(pers1.getRightHand()) > 0 || getIntensityHL(pers1.getLeftHand()) > 3){
+						tree.turnYellow();	
+						tree.turnYellow();
+						tree.turnYellow();
+					}
+					else if(getIntensityHR(pers1.getRightHand()) > 0 || getIntensityHL(pers1.getLeftHand()) > 2){
+						tree.turnYellow();	
+						tree.turnYellow();
+					}
+					else if(getIntensityHR(pers1.getRightHand()) > 0 || getIntensityHL(pers1.getLeftHand()) > 0){
+						tree.turnYellow();	
+					}
+				}
 			}
 			
 		}
