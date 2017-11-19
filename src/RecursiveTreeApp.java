@@ -18,6 +18,7 @@ public class RecursiveTreeApp extends PApplet {
 	Cloud cloud1;
 	Cloud cloud2;
 	RecursiveTree tree;
+	
 	//handRight variables for getIntensity method
 	float HRprevY = 0;
 	float HRVelocity = 0;
@@ -34,7 +35,6 @@ public class RecursiveTreeApp extends PApplet {
 	
 	long curStagger = DEFAULT_STAGGER;
 	long prevLeaf = 0;
-
 	
 	float bottom;
 	
@@ -77,6 +77,7 @@ public class RecursiveTreeApp extends PApplet {
 
 		tracker.update(bodyData);
 		background(204, 230, 255);
+		
 		cloud1.draw();
 		cloud2.draw();
 		for(Long id : tracker.getEnters()) {
@@ -163,8 +164,26 @@ public class RecursiveTreeApp extends PApplet {
 					tree.drawLeaf();
 				}
 				
-				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand()))
-					tree.turnYellow();
+				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand())){
+					if(getIntensityHR(pers1.getRightHand()) > 4 || getIntensityHL(pers1.getLeftHand()) > 4){
+						tree.turnYellow();
+						tree.turnYellow();
+						tree.turnYellow();
+						tree.turnYellow();
+					}
+					else if(getIntensityHR(pers1.getRightHand()) > 3 || getIntensityHL(pers1.getLeftHand()) > 3){
+						tree.turnYellow();	
+						tree.turnYellow();
+						tree.turnYellow();
+					}
+					else if(getIntensityHR(pers1.getRightHand()) > 2 || getIntensityHL(pers1.getLeftHand()) > 2){
+						tree.turnYellow();	
+						tree.turnYellow();
+					}
+					else if(getIntensityHR(pers1.getRightHand()) > 0 || getIntensityHL(pers1.getLeftHand()) > 0){
+						tree.turnYellow();	
+					}
+				}
 			}
 			
 		}
@@ -211,6 +230,7 @@ public class RecursiveTreeApp extends PApplet {
 			ellipse(vec.x, vec.y, .1f, .1f);
 		}
 	}
+	
 	
 	//calculate the y difference between current location and the last location
 	public float diffVel(float oldVel, float lastY,  float curY){

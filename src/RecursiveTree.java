@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -17,7 +18,7 @@ public class RecursiveTree {
 	/** Number of branches **/
 	public static final int NUM_BRANCHES = 4; //4 
 	
-	final static float TRUNK_LENGTH = 0.9f;
+	final static float TRUNK_LENGTH = 0.85f;
 	
 	final static float TRUNK_WEIGHT = 0.12f;
 
@@ -35,7 +36,7 @@ public class RecursiveTree {
 	ArrayList<RecursiveBranch> branches = new ArrayList<RecursiveBranch>();
 	ArrayList<Leaf> leaves = new ArrayList<Leaf>();
 	ArrayList<Float[]> leafPositions= new ArrayList<Float[]>();
-	ArrayList<PVector> leafPosition = new ArrayList<PVector>();
+//	ArrayList<PVector> leafPosition = new ArrayList<PVector>();
 	
 	public RecursiveTree(PApplet app, float start, float bottom) {
 		this.app = app;
@@ -43,8 +44,8 @@ public class RecursiveTree {
 		this.bottom = bottom;
 		
 		maxBranchAngle = app.PI/2.5f;
-		setupBranch(app, new PVector(start, bottom + TRUNK_LENGTH), TRUNK_LENGTH, app.PI/2.5f, NUM_GENERATION-1, TRUNK_WEIGHT/GOLDEN_RATIO);	  
-		//fillBranches();
+		setupBranch(app, new PVector(start, bottom + TRUNK_LENGTH), TRUNK_LENGTH, app.PI/2.5f, NUM_GENERATION-1, TRUNK_WEIGHT/GOLDEN_RATIO);	 
+		shuffleLeaves();
 	}
 	
 	public void setupBranch(PApplet app, PVector startingPoint, float length, float angle, int generation, float weight){
@@ -52,14 +53,11 @@ public class RecursiveTree {
 	    if( generation == 0 )
 	    {  
 	    	leafPositions.add(new Float[] {startingPoint.x, startingPoint.y});
+	    	leafPositions.add(new Float[] {startingPoint.x-0.06f+app.random(0.06f), startingPoint.y-0.18f+app.random(0.2f)});
 	    }
 	    
 	    else if (generation > 0)
-	    {  
-//	    	if(generation == 1)
-//		    	leaves.add(new Leaf(app, startingPoint.x+app.random(0.05f), startingPoint.y+app.random(0.05f)));
-//		    	leaves.add(new Leaf(app, startingPoint.x-app.random(0.05f), startingPoint.y+app.random(0.05f)));
-		    	
+	    { 
 	    	for (int i = 0; i < NUM_BRANCHES; i++){
 	    	  	// Determine an angle of a branch which will be painted.         
 	    	  	float branchangle = (float)(angle-maxBranchAngle + (app.random(2*maxBranchAngle)));
@@ -108,10 +106,11 @@ public class RecursiveTree {
 				app.noStroke();
 				l.draw();
 			}
-		}
-		
-		
-		
+		}	
+	}
+	
+	public void shuffleLeaves(){
+		Collections.shuffle(leafPositions);
 	}
 	
 	public void turnYellow(){
@@ -128,7 +127,6 @@ public class RecursiveTree {
 			float y = leafPositions.get(0)[1];
 			
 			leaves.add(new Leaf(app, x, y));
-	    	leaves.add(new Leaf(app, x-0.06f+app.random(0.06f), y-0.18f+app.random(0.2f)));
 	    	
 	    	leafPositions.add(new Float[] {x, y});
 			leafPositions.remove(0);
