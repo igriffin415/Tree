@@ -18,7 +18,7 @@ public class RecursiveTree {
 	/** Number of branches **/
 	public static final int NUM_BRANCHES = 4; //4 
 	
-	final static float TRUNK_LENGTH = 0.9f;
+	final static float TRUNK_LENGTH = 0.85f;
 	
 	final static float TRUNK_WEIGHT = 0.12f;
 
@@ -57,11 +57,7 @@ public class RecursiveTree {
 	    }
 	    
 	    else if (generation > 0)
-	    {  
-//	    	if(generation == 1)
-//		    	leaves.add(new Leaf(app, startingPoint.x+app.random(0.05f), startingPoint.y+app.random(0.05f)));
-//		    	leaves.add(new Leaf(app, startingPoint.x-app.random(0.05f), startingPoint.y+app.random(0.05f)));
-		    	
+	    { 
 	    	for (int i = 0; i < NUM_BRANCHES; i++){
 	    	  	// Determine an angle of a branch which will be painted.         
 	    	  	float branchangle = (float)(angle-maxBranchAngle + (app.random(2*maxBranchAngle)));

@@ -171,12 +171,12 @@ public class RecursiveTreeApp extends PApplet {
 						tree.turnYellow();
 						tree.turnYellow();
 					}
-					else if(getIntensityHR(pers1.getRightHand()) > 0 || getIntensityHL(pers1.getLeftHand()) > 3){
+					else if(getIntensityHR(pers1.getRightHand()) > 3 || getIntensityHL(pers1.getLeftHand()) > 3){
 						tree.turnYellow();	
 						tree.turnYellow();
 						tree.turnYellow();
 					}
-					else if(getIntensityHR(pers1.getRightHand()) > 0 || getIntensityHL(pers1.getLeftHand()) > 2){
+					else if(getIntensityHR(pers1.getRightHand()) > 2 || getIntensityHL(pers1.getLeftHand()) > 2){
 						tree.turnYellow();	
 						tree.turnYellow();
 					}
