@@ -18,6 +18,7 @@ public class RecursiveTreeApp extends PApplet {
 	Cloud cloud1;
 	Cloud cloud2;
 	RecursiveTree tree;
+	
 	//handRight variables for getIntensity method
 	float HRprevY = 0;
 	float HRVelocity = 0;
