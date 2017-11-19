@@ -57,7 +57,7 @@ public class RecursiveBranch {
 	
 		applet.strokeWeight(currWeight);
 		
-		if(currentLength < 1f) currentLength = currentLength + 0.5f;
+		if(currentLength < 1f) currentLength = currentLength + growthSpeed; //0.4f;
 		else done = true;
 
 		float x = applet.lerp(xStart, xEnd, currentLength);
@@ -71,11 +71,11 @@ public class RecursiveBranch {
 
 	public void setGrowSpeed(float distance){
 		if( distance > 2 )
-			growthSpeed = 0.005f;			
+			growthSpeed = 0.03f;			
 		else if( distance > 1.1 )
-			growthSpeed = 0.1f;
+			growthSpeed = 0.06f;
 		else if( distance > 0.8 )
-			growthSpeed = 0.2f;
+			growthSpeed = 0.1f;
 		else if( distance > 0.5 )
 			growthSpeed = 0.5f;
 	}

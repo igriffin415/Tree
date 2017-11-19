@@ -44,7 +44,7 @@ public class RecursiveTreeApp extends PApplet {
 	public static float PROJECTOR_RATIO = 1080f/1920.0f;
 
 	public void settings() {
-		createWindow(true, false, .5f);
+		createWindow(true, true, .5f);
 	}
 
 	public void setup(){
