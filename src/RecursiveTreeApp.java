@@ -83,9 +83,6 @@ public class RecursiveTreeApp extends PApplet {
 		cloud1.draw();
 		cloud2.draw();
 		//cloud3.draw();
-		//ground
-		this.fill(102, 255, 102);
-		this.rect(-2.5f, -1.2f, 5f, .5f);
 		for(Long id : tracker.getEnters()) {
 			tracks.put(id,  new Person(this, .1f));
 			if(twoPeople.size() < 2)
@@ -196,6 +193,11 @@ public class RecursiveTreeApp extends PApplet {
 		else if(twoPeople.size() == 0) {
 			tree = null;
 		}
+		
+		//ground
+		noStroke();
+		this.fill(99, 206, 120);
+		this.rect(-2.5f, -1.2f, 5f, .3f);
 	}
 
 

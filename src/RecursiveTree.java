@@ -18,7 +18,7 @@ public class RecursiveTree {
 	/** Number of branches **/
 	public static final int NUM_BRANCHES = 4; //4 
 	
-	final static float TRUNK_LENGTH = 0.85f;
+	final static float TRUNK_LENGTH = 0.9f;
 	
 	final static float TRUNK_WEIGHT = 0.12f;
 
