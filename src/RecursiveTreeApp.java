@@ -17,6 +17,7 @@ public class RecursiveTreeApp extends PApplet {
 	Seed seed;
 	Cloud cloud1;
 	Cloud cloud2;
+	Cloud cloud3;
 	RecursiveTree tree;
 	
 	//handRight variables for getIntensity method
@@ -44,7 +45,7 @@ public class RecursiveTreeApp extends PApplet {
 	public static float PROJECTOR_RATIO = 1080f/1920.0f;
 
 	public void settings() {
-		createWindow(true, true, .5f);
+		createWindow(true, false, .5f);
 	}
 
 	public void setup(){
@@ -52,7 +53,7 @@ public class RecursiveTreeApp extends PApplet {
 		/*
 		 * use this code to run your PApplet from data recorded by UPDRecorder 
 		 */
-
+		
 		if(recordingFile != null)
 			try {
 				kinectReader = new KinectBodyDataProvider("test.kinect", 10);
@@ -65,8 +66,9 @@ public class RecursiveTreeApp extends PApplet {
 		
 		seed = null;
 		tree = null;
-		cloud1 = new Cloud(this, true);
-		cloud2 = new Cloud(this, false);
+		cloud1 = new Cloud(this, 2.5f, 0.0f, true);
+		cloud2 = new Cloud(this, -2.5f, 0.5f, false);
+		cloud3 = new Cloud(this, 3.4f, 0.85f, true);
 		kinectReader.start();
 
 	}
@@ -80,6 +82,10 @@ public class RecursiveTreeApp extends PApplet {
 		
 		cloud1.draw();
 		cloud2.draw();
+		//cloud3.draw();
+		//ground
+		this.fill(102, 255, 102);
+		this.rect(-2.5f, -1.2f, 5f, .5f);
 		for(Long id : tracker.getEnters()) {
 			tracks.put(id,  new Person(this, .1f));
 			if(twoPeople.size() < 2)
@@ -104,7 +110,7 @@ public class RecursiveTreeApp extends PApplet {
 				//drawIfValid(p.getRightHand());
 			}
 		}
-		
+		cloud3.draw();
 		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
 		//don't want a tree and seed 
 		if(tree != null) {
