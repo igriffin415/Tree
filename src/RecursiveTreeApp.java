@@ -133,12 +133,12 @@ public class RecursiveTreeApp extends PApplet {
 			
 			//if there is a tree and the tree is done drawing, start drawing leaves
 			if(tree != null && tree.canDrawLeaves()){
-				//if two people are close draw leaves slower
+				//if two people are close draw leaves faster
 				if( getDistance(pers1.getHead(), pers2.getHead()) < 0.5f && getDistance(pers1.getHead(), pers2.getHead()) > 0 ){
-					curStagger += 1000;
-				} //if farther draw leaves faster
-				else if( getDistance(pers1.getHead(), pers2.getHead()) >= 0.5f && getDistance(pers1.getHead(), pers2.getHead()) < 1f ){
 					curStagger -= 1000;
+				} //if farther draw leaves slower
+				else if( getDistance(pers1.getHead(), pers2.getHead()) >= 0.5f && getDistance(pers1.getHead(), pers2.getHead()) < 1f ){
+					curStagger  += 1000;
 				}
 				//if stagger goes too low bring to zero
 				if(curStagger <= 0) {
