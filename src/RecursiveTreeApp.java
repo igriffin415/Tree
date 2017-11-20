@@ -150,7 +150,7 @@ public class RecursiveTreeApp extends PApplet {
 					tree.drawLeaf();
 				}
 				
-				//depending on two poeple raising arms, leaves get yellow and then eventually fall off
+				//depending on two people raising arms, leaves get yellow and then eventually fall off
 				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand())){
 					if(getIntensityHR(pers1.getRightHand()) > 4 || getIntensityHL(pers1.getLeftHand()) > 4){
 						tree.turnYellow();
@@ -173,11 +173,12 @@ public class RecursiveTreeApp extends PApplet {
 				}
 			}
 			
+			//draw clouds at hand's horizontal position
 			if(pers1.getRightHand() != null && pers2.getLeftHand() != null){
 				cloud1.draw(pers1.getRightHand().x); 
 				cloud2.draw(pers2.getLeftHand().x);
 			}
-			
+			//rain 
 			if(rain[0] == null){
 				cloud1.dark(getDistance(pers1.getRightHand(), pers2.getLeftHand()));
 				cloud2.dark(getDistance(pers1.getRightHand(), pers2.getLeftHand()));
