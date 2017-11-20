@@ -101,16 +101,6 @@ public class RecursiveTreeApp extends PApplet {
 				p.update(b);
 			}
 		}
-		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
-		//don't want a tree and seed 
-		if(tree != null) {
-			tree.draw();
-		}
-		else if( rain[0] != null) {
-			for(Rain r : rain){
-				r.draw();
-			}
-		}
 
 		//if there are two people set each person to
 		//pers1 and pers2 for use
@@ -141,23 +131,26 @@ public class RecursiveTreeApp extends PApplet {
 			if(tree != null)
 				tree.setGrowSpeed(getDistance(pers1.getHead(), pers2.getHead()));
 			
+			//if there is a tree and the tree is done drawing, start drawing leaves
 			if(tree != null && tree.canDrawLeaves()){
+				//if two people are close draw leaves slower
 				if( getDistance(pers1.getHead(), pers2.getHead()) < 0.5f && getDistance(pers1.getHead(), pers2.getHead()) > 0 ){
 					curStagger += 1000;
-				}
+				} //if farther draw leaves faster
 				else if( getDistance(pers1.getHead(), pers2.getHead()) >= 0.5f && getDistance(pers1.getHead(), pers2.getHead()) < 1f ){
 					curStagger -= 1000;
 				}
-				
+				//if stagger goes too low bring to zero
 				if(curStagger <= 0) {
 					curStagger = DEFAULT_STAGGER;
 				}
-				
+				//draw leaves at stagger time
 				if((System.currentTimeMillis() - prevLeaf) > curStagger) {
 					prevLeaf = System.currentTimeMillis();
 					tree.drawLeaf();
 				}
 				
+				//depending on two poeple raising arms, leaves get yellow and then eventually fall off
 				if(getIntensityHR(pers1.getRightHand()) == getIntensityHR(pers2.getRightHand()) && getIntensityHL(pers1.getLeftHand()) == getIntensityHL(pers2.getLeftHand())){
 					if(getIntensityHR(pers1.getRightHand()) > 4 || getIntensityHL(pers1.getLeftHand()) > 4){
 						tree.turnYellow();
@@ -197,7 +190,16 @@ public class RecursiveTreeApp extends PApplet {
 		else if(twoPeople.size() == 0) {
 			tree = null;
 		}
-		
+		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
+		//don't want a tree and seed 
+		if(tree != null) {
+			tree.draw();
+		}
+		else if( rain[0] != null) {
+			for(Rain r : rain){
+				r.draw();
+			}
+		}
 		//ground
 		noStroke();
 		this.fill(99, 206, 120);
