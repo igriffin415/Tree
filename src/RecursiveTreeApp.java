@@ -7,18 +7,15 @@ import processing.core.PVector;
 public class RecursiveTreeApp extends PApplet {
 	private static long DEFAULT_STAGGER = 5000; //ms
 	
-	public static enum COLOR_STATE { RED, GREEN, BLUE };
-	public COLOR_STATE colorState = COLOR_STATE.RED;
-
 	String recordingFile = "test.kinect";
 	HashMap<Long, Person> tracks = new HashMap<Long, Person>();
 	HashMap<Long, Person> twoPeople = new HashMap<Long, Person>();
 	Person pers1, pers2;
-	Seed seed;
 	Cloud cloud1;
 	Cloud cloud2;
-	Cloud cloud3;
 	RecursiveTree tree;
+	
+	final static int NUM_DROPS = 60;
 	
 	//handRight variables for getIntensity method
 	float HRprevY = 0;
@@ -39,13 +36,15 @@ public class RecursiveTreeApp extends PApplet {
 	
 	float bottom;
 	
+	Rain[] rain = new Rain[NUM_DROPS];
+	
 	KinectBodyDataProvider kinectReader;
 	PersonTracker tracker = new PersonTracker();
 
 	public static float PROJECTOR_RATIO = 1080f/1920.0f;
 
 	public void settings() {
-		createWindow(true, false, .5f);
+		createWindow(false, true, .5f);
 	}
 
 	public void setup(){
@@ -64,24 +63,21 @@ public class RecursiveTreeApp extends PApplet {
 			kinectReader = new KinectBodyDataProvider(8008);
 		}
 		
-		seed = null;
 		tree = null;
-		cloud1 = new Cloud(this, 2.5f, 0.0f, true);
-		cloud2 = new Cloud(this, -2.5f, 0.5f, false);
-		cloud3 = new Cloud(this, 3.4f, 0.85f, true);
+		cloud1 = new Cloud(this);
+		cloud2 = new Cloud(this);
 		kinectReader.start();
 
 	}
 	public void draw(){
 		setScale(.5f);
-
+		
+		
 		KinectBodyData bodyData = kinectReader.getMostRecentData();
 
 		tracker.update(bodyData);
 		background(204, 230, 255);
 		
-		cloud1.draw();
-		cloud2.draw();
 		//cloud3.draw();
 		for(Long id : tracker.getEnters()) {
 			tracks.put(id,  new Person(this, .1f));
@@ -103,19 +99,17 @@ public class RecursiveTreeApp extends PApplet {
 			{
 				Person p = twoPeople.get(b.getId());
 				p.update(b);
-				//drawIfValid(p.getLeftHand());
-				//drawIfValid(p.getRightHand());
 			}
 		}
-		cloud3.draw();
 		//if there is a tree, update & draw otherwise check if there's a seed to update and draw. 
 		//don't want a tree and seed 
 		if(tree != null) {
 			tree.draw();
 		}
-		else if(seed != null) {
-			seed.update();
-			seed.draw();
+		else if( rain[0] != null) {
+			for(Rain r : rain){
+				r.draw();
+			}
 		}
 
 		//if there are two people set each person to
@@ -132,19 +126,16 @@ public class RecursiveTreeApp extends PApplet {
 				count++;
 			}
 			
-			//if the hands intersect and a seed is not falling
-			//need two seperate in order to get correct position for falling
-			if(checkIntersect(pers1.getLeftHand(), pers2.getRightHand()) && 
-			   seed == null) {
-				seed = new Seed(this, pers1.getLeftHand().x, pers1.getLeftHand().y);
-			}
-			else if(checkIntersect(pers1.getRightHand(), pers2.getLeftHand()) &&
-					   seed == null) {
-				seed = new Seed(this, pers2.getLeftHand().x, pers2.getLeftHand().y);
+			if(checkIntersect(pers1.getRightHand(), pers2.getLeftHand()) &&
+					rain[0] == null) {
+				for(int i = 0; i < NUM_DROPS; i++){
+					rain[i] = new Rain(this, pers1.getRightHand().x-0.3f + random(0.6f), 0.8f);
+				}
+				rain[0].setSpeed(0.006f);
 			}
 			
-			if(seed != null && seed.getY() <= bottom && tree == null) {
-				tree = new RecursiveTree(this, seed.getX(), bottom);
+			if(rain[0] != null && rain[0].getY() <= bottom && tree == null) {
+				tree = new RecursiveTree(this, rain[0].getX(), bottom);
 			}
 			
 			if(tree != null)
@@ -189,6 +180,19 @@ public class RecursiveTreeApp extends PApplet {
 				}
 			}
 			
+			if(pers1.getRightHand() != null && pers2.getLeftHand() != null){
+				cloud1.draw(pers1.getRightHand().x); 
+				cloud2.draw(pers2.getLeftHand().x);
+			}
+			
+			if(rain[0] == null){
+				cloud1.dark(getDistance(pers1.getRightHand(), pers2.getLeftHand()));
+				cloud2.dark(getDistance(pers1.getRightHand(), pers2.getLeftHand()));
+			}
+			else{
+				cloud1.dark(0);
+				cloud2.dark(0);
+			}
 		}
 		else if(twoPeople.size() == 0) {
 			tree = null;
@@ -211,7 +215,7 @@ public class RecursiveTreeApp extends PApplet {
 	 * @return true if the hands are together
 	 */
 	public boolean checkIntersect(PVector hand1, PVector hand2) {	
-		float diam = .65f;
+		float diam = .30f;
 		float distance = getDistance(hand1, hand2);
 		if(distance > 0 && distance <= diam)
 			return true;
@@ -229,24 +233,12 @@ public class RecursiveTreeApp extends PApplet {
 		return distance;
 	}
 	
-	public void drawIfValid(PVector vec) {
-		if(vec!= null)
-		{
-			fill(0);
-			stroke(0);
-			strokeWeight(.1f);
-			ellipse(vec.x, vec.y, .1f, .1f);
-		}
-	}
-	
-	
 	//calculate the y difference between current location and the last location
 	public float diffVel(float oldVel, float lastY,  float curY){
 		
 			float diffY = curY - lastY;
 			
 			if (diffY != 0){
-
 				return (float) ((oldVel*0.8) + (diffY*0.2));
 			} else {
 			 return  oldVel;
@@ -266,7 +258,6 @@ public class RecursiveTreeApp extends PApplet {
 			}
 			HLprevY =  handLeft.y;
 		}
-
 	}	
 	
 	//set the state goingUp true if right hand is moving up
@@ -282,7 +273,6 @@ public class RecursiveTreeApp extends PApplet {
 			}
 			HRprevY =  handRight.y;
 		}
-
 	}
 	
 	// return the average intensity of right and left hand
@@ -303,16 +293,11 @@ public class RecursiveTreeApp extends PApplet {
 	 */
 	// add flowers to represent head
 	public int getIntensityHR(PVector p1){
-		
 		int intensity = -1;
-		
 		diffHR(p1);
-		
 		//HRgoingUp is the previous value
 		if (p1!=null){	
-			
 			if (HRgoingUp){
-			
 				if (HRVelocity == 0)	{
 					return intensity;
 				}
@@ -331,11 +316,8 @@ public class RecursiveTreeApp extends PApplet {
 				else if (HRVelocity > 0.06) {
 					 intensity = 5;
 				}
-				
-				}
-			
 			}
-		
+		}
 		return intensity;
 	}
 	
@@ -348,15 +330,11 @@ public class RecursiveTreeApp extends PApplet {
 	 * Big change --> Return 5
 	 */
 	public int getIntensityHL(PVector p1){
-		
 		int intensity = -1;
 		
 		if (p1!=null){	
-
 			diffHL(p1);
-			
 			if (HLgoingUp){
-			
 				if (HLVelocity == 0)	{
 					return intensity;
 				}
@@ -379,11 +357,9 @@ public class RecursiveTreeApp extends PApplet {
 			}
 			
 		}
-		
 		return intensity;
 	}
 
-	
 	public void createWindow(boolean useP2D, boolean isFullscreen, float windowsScale) {
 		if (useP2D) {
 			if(isFullscreen) {
@@ -407,6 +383,4 @@ public class RecursiveTreeApp extends PApplet {
 		translate(1f/zoom , -PROJECTOR_RATIO/zoom );		
 		bottom = -PROJECTOR_RATIO/zoom;
 	}
-
-
 }
